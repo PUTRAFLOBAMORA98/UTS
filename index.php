@@ -1,3 +1,6 @@
+<?php
+include("koneksi.php");
+?>
 <html>
 
 <head>
@@ -21,28 +24,50 @@
 </head>
 
 <body>
+
+
+
+
+
+
+
     <br>
     <br>
-    <p align="center">Data Pemantauan Covid19 wilayah Banten <br> 18 April 2020 21:38:16
+    <p align="center">Data Pemantauan Covid19 wilayah <?php echo 'Banten'; ?> <br> 18 April 2020 21:38:16
         (<?php
             date_default_timezone_set('Asia/Jakarta');
             $time = time();
             echo date('l, d-m-y H:i:s a');  ?>)<br>
-        Kristianus Mon/171011400937</p>
+        Kristianus Mon/<?php echo '171011400937'; ?></p>
+
 
     <table border="1" cellspacing="10" cellpadding="20">
-        <tr>
-            <th>Positif</th>
-            <th>Dirawat</th>
-            <th>Sembuh</th>
-            <th>Meninggal</th>
-        </tr>
-        <tr>
-            <td><?php echo '2902'; ?></td>
-            <td><?php echo '1769'; ?> </td>
-            <td><?php echo '206'; ?></td>
-            <td><?php echo '257'; ?></td>
-        </tr>
+
+        <thead>
+            <tr>
+                <th>Positif</th>
+                <th>Dirawat</th>
+                <th>Sembuh</th>
+                <th>Meninggal</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <?php
+            $no = 1;
+            $sql = "SELECT * FROM covid";
+            $query = mysqli_query($koneksi, $sql);
+            while ($pasien = mysqli_fetch_array($query)) {
+
+                echo "<tr>";
+                echo "<td>" . $pasien['jumlah_positif'] . "</td>";
+                echo "<td>" . $pasien['jumlah_dirawat'] . "</td>";
+                echo "<td>" . $pasien['jumlah_sembuh'] . "</td>";
+                echo "<td>" . $pasien['jumlah_meninggal'] . "</td>";
+                echo "</tr>";
+            }
+            ?>
+        </tbody>
     </table>
 
 
